@@ -3,4 +3,5 @@
 /bin/
 /.shards/
 *.dwarf
-/server/c_bindings/lib/
+src/server/c_bindings/lib/
+.editorconfig
