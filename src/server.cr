@@ -36,7 +36,7 @@ end
 def decide_operation(message, client, clients_arr)
   id = String.new(message)[0] # The first byte is in charge of the stage
   curr_type = Protocol.identify(id.ord.to_u8, 0)
-
+  
   case curr_type
   when Protocol::PacketTypes::HAND_SHAKE_CLIENT_TYPE
     puts "Establishing an handshake client type"
