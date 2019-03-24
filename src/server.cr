@@ -24,7 +24,7 @@ def handle_connection(socket, clients_arr)
     decide_operation(buffer, socket, clients_arr)
   end
 rescue ex : Errno
-  if ex.errno == Errno::ECONNRESET
+  if ex.errno == Errno::ECONNRESET || ex.errno == Errno::EPIPE
     if socket_to_disconnect = clients_arr.find {|o| o.tcp == socket}
       clients_arr.delete(socket_to_disconnect)
       puts "Disconnected succesfully"
