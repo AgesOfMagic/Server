@@ -1,7 +1,6 @@
 require "socket"
 require "./server/c_bindings/bindings.cr"
 require "./server/classes/*"
-require "colorize"
 
 class Server
   property port
