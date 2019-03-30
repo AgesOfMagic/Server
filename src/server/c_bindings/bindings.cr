@@ -14,6 +14,9 @@ lib Protocol
     HAND_SHAKE_CLIENT_TYPE
     HAND_SHAKE_SERVER_TYPE
     MOVEMENT_PACKET_TYPE
+    UPDATE_POSITION_TYPE
+    UPDATE_FILE_HEADER_TYPE
+    UPDATE_WORLD_TYPE
   end
 
   enum Direction
@@ -32,7 +35,7 @@ lib Protocol
   struct HandShakeServer
     status : Status
     serverVersion : StaticArray(UInt8, 16)
-    characterData : StaticArray(UInt8, 492)
+    serverName : StaticArray(UInt8, 128)
   end
 
   struct MovementPacket
@@ -43,7 +46,24 @@ lib Protocol
   struct UpdatePosition
     x : Int32
     y : Int32
-    id : UInt8
+    id : UInt32
+  end
+
+  struct UpdateFileHeader
+    length : UInt32
+    name : StaticArray(UInt8, 72)
+  end
+
+  struct BuildPacket
+    length : UInt16
+    x : Int32
+    y : Int32
+  end
+
+  struct UpdateWorld
+    blockID : UInt32
+    x : Int32
+    y : Int32
   end
 
   fun handShakeClientToBuffer(clientPacket : HandShakeClient) : Pointer(UInt8)
@@ -58,4 +78,13 @@ lib Protocol
 
   fun updatePositionToBuffer(updatePosition : UpdatePosition) : Pointer(UInt8)
   fun bufferToUpdatePosition(buff : Pointer(UInt8)) : UpdatePosition
+
+  fun updateFileHeaderToBuffer(updateFileHeader : UpdateFileHeader) : Pointer(UInt8)
+  fun bufferToUpdateFileHeader(buff : Pointer(UInt8)) : UpdateFileHeader
+
+  fun bufferToUpdateWorld(buff : Pointer(UInt8)) : UpdateWorld
+  fun updateWordToBuffer(updateWorld: UpdateWorld) : Pointer(UInt8)
+
+  fun buildPacketToBuffer(buildPacket : BuildPacket) : Pointer(UInt8)
+  fun bufferToBuildPacket(buff : Pointer(UInt8)) : BuildPacket
 end
